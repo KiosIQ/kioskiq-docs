@@ -26,7 +26,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Verify every page is valid HTML we can serve
         run: |
@@ -45,6 +45,11 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          # Provision the Pages site on first run instead of requiring
+          # someone to flip Settings > Pages by hand. Needs the repository
+          # to be eligible for Pages: public, or private on a paid plan.
+          enablement: true
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

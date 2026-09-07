@@ -37,9 +37,18 @@ Pushing to `main` deploys automatically. To publish for the first time:
    git push -u origin main
    ```
 
-3. In the repository, go to **Settings > Pages** and set
-   **Source** to **GitHub Actions**.
-4. Re-run the **Publish Docs** workflow, or push again.
+3. The repository must be **public**, or private on a paid GitHub plan.
+   GitHub Pages is not available for private repositories on the free plan,
+   and the workflow fails at `Configure Pages` with
+   `Get Pages site failed ... Not Found` when it is.
+4. The workflow provisions Pages itself (`enablement: true`), so there is
+   normally nothing to click. If it does not, set **Settings > Pages >
+   Source** to **GitHub Actions** and re-run **Publish Docs**.
+
+Note that a Pages site is publicly reachable even when the repository is
+private, unless you are on GitHub Enterprise Cloud with private Pages. Since
+this site is static HTML and the source *is* the published page, keeping the
+repository private buys very little here.
 
 The site then lives at `https://<org>.github.io/kioskiq-docs/`.
 
