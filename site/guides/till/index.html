@@ -509,16 +509,20 @@ ol.steps .said{color:var(--ink-2);font-size:14px;display:block;margin-top:2px}
   padding:5px 11px;border-radius:7px;cursor:pointer;
 }
 .flow-ctl button:hover{border-color:var(--amber);color:var(--amber)}
+/* The annotated diagram places its numbered pins as percentages of the
+   mock-up. Its toolbar icons are a fixed pixel size, so any change of width
+   is absorbed by the flexible spacer and slides every pin off its target.
+   It therefore keeps one width at every screen size and scrolls inside its
+   own box instead of being reflowed. */
+.till.anat{min-width:660px}
+.task-body>div{overflow-x:auto}
+
 @media (max-width:560px){
-  /* The till mock-ups are annotated diagrams: the numbered pins are placed
-     as percentages of the mock-up, so squashing it would slide every pin off
-     its target. Instead it keeps its width and scrolls inside its own box. */
-  .task-body>div{overflow-x:auto}
-  .till{min-width:342px}
-  .till{font-size:12.8px}
-  .till .mi .mn{font-size:9.6px}
-  .till .mi .mp{font-size:10.6px}
-  .till .row,.till .om,.till .ordbox{font-size:9.4px}
+  .till:not(.anat){min-width:342px}
+  .till:not(.anat){font-size:12.8px}
+  .till:not(.anat) .mi .mn{font-size:9.6px}
+  .till:not(.anat) .mi .mp{font-size:10.6px}
+  .till:not(.anat) .row,.till:not(.anat) .om,.till:not(.anat) .ordbox{font-size:9.4px}
   .flow-ctl button{min-height:40px;padding:8px 14px}
   .pips i{height:8px;width:8px}
   .pips i.on{width:18px}
@@ -728,9 +732,9 @@ footer{
             <div class="till-bar">
               <div class="logo"></div><div class="nm">Your Restaurant</div>
               <div class="sp"></div>
-              <div class="ic">🔔</div><div class="ic">⟳</div><div class="ic">▤</div>
-              <div class="ic txt">Z READ</div>
-              <div class="ic">🖨</div><div class="ic">💷</div><div class="ic">•••</div><div class="ic">☰</div><div class="ic">⚙</div>
+              <div class="ic">🔔</div><div class="ic">⟳</div><div class="ic" id="an-hist">▤</div>
+              <div class="ic txt" id="an-zread">Z READ</div>
+              <div class="ic">💷</div><div class="ic" id="an-help">?</div><div class="ic" id="an-set">⚙</div><div class="ic">⇥</div>
             </div>
             <div class="till-body">
               <div class="menu">
@@ -753,12 +757,13 @@ footer{
               </div>
             </div>
             <div class="pin" style="left:6%;top:9.5%;--d:0s">1</div>
-            <div class="pin" style="left:61%;top:9.5%;--d:.4s">2</div>
-            <div class="pin" style="left:68.7%;top:9.5%;--d:.8s">3</div>
-            <div class="pin" style="left:13%;top:30%;--d:1.2s">4</div>
-            <div class="pin" style="left:69.4%;top:20%;--d:1.6s">5</div>
-            <div class="pin" style="left:69.4%;top:43.5%;--d:2s">6</div>
-            <div class="pin" style="left:69.4%;top:88%;--d:2.4s">7</div>
+            <div class="pin" style="left:73.6%;top:9.5%;--d:.35s">2</div>
+            <div class="pin" style="left:79.5%;top:9.5%;--d:.7s">3</div>
+            <div class="pin" style="left:89.2%;top:9.5%;--d:1.05s">4</div>
+            <div class="pin" style="left:13%;top:30%;--d:1.4s">5</div>
+            <div class="pin" style="left:69.4%;top:20%;--d:1.75s">6</div>
+            <div class="pin" style="left:69.4%;top:43.5%;--d:2.1s">7</div>
+            <div class="pin" style="left:69.4%;top:88%;--d:2.45s">8</div>
           </div>
           <p class="cap">The till at rest, with one burger on the ticket.</p>
         </div>
@@ -766,10 +771,11 @@ footer{
           <li><span class="k">1</span><div><b>Restaurant name.</b> Tap the arrow here to go back up a level when you're inside a menu category.</div></li>
           <li><span class="k">2</span><div><b>Order history.</b> Past orders live here. This is where refunds and cancellations happen — not on the Orders tab.</div></li>
           <li><span class="k">3</span><div><b>Z Read.</b> End-of-day cash-up. Manager only — see task 12.</div></li>
-          <li><span class="k">4</span><div><b>The menu.</b> Tap a category to open it, then tap a dish to add it. The small dark square opens toppings and options.</div></li>
-          <li><span class="k">5</span><div><b>Ticket / Orders.</b> <b>Ticket</b> is what you're ringing up right now. <b>Orders</b> is everything already sent to the kitchen.</div></li>
-          <li><span class="k">6</span><div><b>Discount &amp; Clear.</b> Discount takes money off the whole ticket. Clear order wipes it and starts again.</div></li>
-          <li><span class="k">7</span><div><b>Charge.</b> The only way out. Tap it and the till asks where the food is going, then how they're paying.</div></li>
+          <li><span class="k">4</span><div><b>Help.</b> Opens this handbook on the till itself, at the section you need. If you are ever unsure mid-service, start here.</div></li>
+          <li><span class="k">5</span><div><b>The menu.</b> Tap a category to open it, then tap a dish to add it. The small dark square opens toppings and options.</div></li>
+          <li><span class="k">6</span><div><b>Ticket / Orders.</b> <b>Ticket</b> is what you're ringing up right now. <b>Orders</b> is everything already sent to the kitchen.</div></li>
+          <li><span class="k">7</span><div><b>Discount &amp; Clear.</b> Discount takes money off the whole ticket. Clear order wipes it and starts again.</div></li>
+          <li><span class="k">8</span><div><b>Charge.</b> The only way out. Tap it and the till asks where the food is going, then how they're paying.</div></li>
         </ul>
       </div>
     </article>
@@ -1434,16 +1440,13 @@ footer{
           <table>
             <thead><tr><th style="width:26%">Button</th><th style="width:16%">Who</th><th>What it does</th></tr></thead>
             <tbody>
+              <tr><td class="mono">? Help</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Opens this handbook without leaving the till. From <b>Order history</b> it opens straight on refunds. There is a QR code too, so you can read it on your own phone and leave the till free.</td></tr>
               <tr><td class="mono">🔔 New kiosk orders</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Flags orders arriving from the self-service kiosk.</td></tr>
               <tr><td class="mono">⟳ Refresh</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Re-pulls orders from the server. Safe to tap any time.</td></tr>
               <tr><td class="mono">▤ Order history</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Past orders, day by day. <b>Refunds and cancellations happen here.</b></td></tr>
               <tr><td class="mono">Z Read</td><td><span class="chip mgr"><span class="dot"></span>PIN</span></td><td>End-of-day totals and closing the trading day.</td></tr>
-              <tr><td class="mono">🖨 Setup printer</td><td><span class="chip mgr"><span class="dot"></span>Manager</span></td><td>Links the terminal to the receipt printer. Once per terminal.</td></tr>
               <tr><td class="mono">💷 Open cash drawer</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Pops the drawer without a sale, for change.</td></tr>
-              <tr><td class="mono">••• Set manager PIN</td><td><span class="chip mgr"><span class="dot"></span>Manager</span></td><td>Sets the PIN that approves refunds and the Z Read.</td></tr>
-              <tr><td class="mono">☰ Reorder categories</td><td><span class="chip mgr"><span class="dot"></span>Manager</span></td><td>Changes the order menu categories appear in.</td></tr>
-              <tr><td class="mono">⚌ Till preferences</td><td><span class="chip mgr"><span class="dot"></span>Manager</span></td><td>One switch: whether <b>discounts need a manager PIN</b>. Ask your manager which setting your site uses.</td></tr>
-              <tr><td class="mono">⚙ Setup payments</td><td><span class="chip mgr"><span class="dot"></span>Manager</span></td><td>Card reader and payment configuration.</td></tr>
+              <tr><td class="mono">⚙ Settings</td><td><span class="chip mgr"><span class="dot"></span>Manager</span></td><td>A menu of set-up-once jobs: <b>Printer setup</b>, <b>Payment setup</b>, <b>Reorder categories</b>, <b>Till preferences</b> (whether discounts need a manager PIN) and <b>Set manager PIN</b> (the PIN that approves refunds and the Z Read). Nothing in here is needed during a normal shift.</td></tr>
               <tr><td class="mono">⇥ Sign out</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Signs you out. Do it at the end of your shift.</td></tr>
             </tbody>
           </table>
