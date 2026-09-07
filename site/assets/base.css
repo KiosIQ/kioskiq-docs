@@ -4,40 +4,45 @@
    site shell: landing page, headers, footers, cards. */
 
 :root{
-  --paper:#eef2f6;
+  /* KioskIQ brand constants - fixed in both themes, because the logo
+     artwork is cream on navy and must stay legible on either. */
+  --brand:#002062;
+  --brand-ink:#FFF9EC;
+
+  --paper:#FFF8EF;
   --card:#ffffff;
-  --card-2:#f7f9fb;
-  --ink:#0e1420;
-  --ink-2:#465268;
-  --ink-3:#78859c;
-  --line:#dbe2ea;
-  --navy:#1b2a4a;
-  --navy-ink:#ffffff;
-  --amber:#b25a06;
-  --amber-bg:#fdf0e0;
-  --amber-line:#f0cfa4;
-  --sage:#1c6047;
-  --sage-bg:#e4f2eb;
-  --sage-line:#b8ddcc;
+  --card-2:#FFF4E1;
+  --ink:#122038;
+  --ink-2:#4a566b;
+  --ink-3:#8b8474;
+  --line:#e8dcc7;
+  --navy:#002062;
+  --navy-ink:#FFF9EC;
+  --amber:#a85a06;
+  --amber-bg:#fbeedc;
+  --amber-line:#ebcfa4;
+  --sage:#14614a;
+  --sage-bg:#e2f0e9;
+  --sage-line:#b4dbc9;
   --shadow:0 1px 2px rgba(16,26,44,.06),0 8px 24px -12px rgba(16,26,44,.18);
   --radius:14px;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --paper:#0b0f16; --card:#141a25; --card-2:#1a222f;
-    --ink:#e9edf3; --ink-2:#a3b0c4; --ink-3:#7c8aa0;
-    --line:#28323f; --navy:#c9d8f5; --navy-ink:#0e1420;
-    --amber:#e79a45; --amber-bg:#2c1f10; --amber-line:#54391a;
-    --sage:#63c79c; --sage-bg:#0f2820; --sage-line:#1e4a38;
+    --paper:#070c1a; --card:#0f1830; --card-2:#16203c;
+    --ink:#eaedf5; --ink-2:#a6b2c9; --ink-3:#7c88a0;
+    --line:#22304f; --navy:#b9ccf2; --navy-ink:#04102b;
+    --amber:#e7a052; --amber-bg:#2b1d0d; --amber-line:#513715;
+    --sage:#5fc79c; --sage-bg:#0d2620; --sage-line:#1d4936;
     --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 24px -12px rgba(0,0,0,.7);
   }
 }
 :root[data-theme="dark"]{
-  --paper:#0b0f16; --card:#141a25; --card-2:#1a222f;
-  --ink:#e9edf3; --ink-2:#a3b0c4; --ink-3:#7c8aa0;
-  --line:#28323f; --navy:#c9d8f5; --navy-ink:#0e1420;
-  --amber:#e79a45; --amber-bg:#2c1f10; --amber-line:#54391a;
-  --sage:#63c79c; --sage-bg:#0f2820; --sage-line:#1e4a38;
+  --paper:#070c1a; --card:#0f1830; --card-2:#16203c;
+  --ink:#eaedf5; --ink-2:#a6b2c9; --ink-3:#7c88a0;
+  --line:#22304f; --navy:#b9ccf2; --navy-ink:#04102b;
+  --amber:#e7a052; --amber-bg:#2b1d0d; --amber-line:#513715;
+  --sage:#5fc79c; --sage-bg:#0d2620; --sage-line:#1d4936;
   --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 24px -12px rgba(0,0,0,.7);
 }
 
@@ -54,10 +59,24 @@ a{color:inherit}
 .shell{max-width:900px;margin:0 auto;padding:0 20px}
 
 .site-head{background:var(--card);border-bottom:1px solid var(--line);padding:38px 0 34px}
-.brand{display:flex;align-items:center;gap:11px;margin-bottom:18px}
-.brand .mark{width:30px;height:30px;border-radius:8px;background:var(--navy);flex:0 0 auto}
-.brand .wm{font-family:Archivo,sans-serif;font-weight:800;font-size:17px;letter-spacing:-.01em}
-.brand .wm span{color:var(--ink-3);font-weight:600}
+.brandbar{background:var(--brand);color:var(--brand-ink)}
+.brandbar-in{
+  max-width:900px;margin:0 auto;padding:14px 20px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.brand-logo{height:34px;width:auto;display:block;flex:0 0 auto}
+.brandbar-tag{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  opacity:.72;padding-left:16px;border-left:1px solid rgba(255,249,236,.28);
+}
+@media (max-width:560px){
+  .brand-logo{height:27px}
+  .brandbar-tag{padding-left:0;border-left:0;font-size:9.5px}
+  .brandbar-in{gap:10px;padding:12px 14px}
+}
+.foot-brand{display:flex;align-items:center;gap:9px}
+.foot-brand img{width:20px;height:20px;border-radius:5px;flex:0 0 auto}
 h1{font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-.022em;line-height:1.05}
 .lede{color:var(--ink-2);font-size:17.5px;max-width:62ch;margin:13px 0 0}
 
