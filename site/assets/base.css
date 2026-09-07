@@ -1,0 +1,106 @@
+/* KioskIQ Docs - shared shell tokens and layout.
+   Guide pages are deliberately self-contained (they must survive being
+   saved, printed or emailed on their own); this stylesheet dresses the
+   site shell: landing page, headers, footers, cards. */
+
+:root{
+  --paper:#eef2f6;
+  --card:#ffffff;
+  --card-2:#f7f9fb;
+  --ink:#0e1420;
+  --ink-2:#465268;
+  --ink-3:#78859c;
+  --line:#dbe2ea;
+  --navy:#1b2a4a;
+  --navy-ink:#ffffff;
+  --amber:#b25a06;
+  --amber-bg:#fdf0e0;
+  --amber-line:#f0cfa4;
+  --sage:#1c6047;
+  --sage-bg:#e4f2eb;
+  --sage-line:#b8ddcc;
+  --shadow:0 1px 2px rgba(16,26,44,.06),0 8px 24px -12px rgba(16,26,44,.18);
+  --radius:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0b0f16; --card:#141a25; --card-2:#1a222f;
+    --ink:#e9edf3; --ink-2:#a3b0c4; --ink-3:#7c8aa0;
+    --line:#28323f; --navy:#c9d8f5; --navy-ink:#0e1420;
+    --amber:#e79a45; --amber-bg:#2c1f10; --amber-line:#54391a;
+    --sage:#63c79c; --sage-bg:#0f2820; --sage-line:#1e4a38;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0b0f16; --card:#141a25; --card-2:#1a222f;
+  --ink:#e9edf3; --ink-2:#a3b0c4; --ink-3:#7c8aa0;
+  --line:#28323f; --navy:#c9d8f5; --navy-ink:#0e1420;
+  --amber:#e79a45; --amber-bg:#2c1f10; --amber-line:#54391a;
+  --sage:#63c79c; --sage-bg:#0f2820; --sage-line:#1e4a38;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 24px -12px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Source Sans 3",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:Archivo,"Source Sans 3",ui-sans-serif,system-ui,sans-serif;text-wrap:balance;margin:0}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--amber);outline-offset:2px;border-radius:4px}
+
+.shell{max-width:900px;margin:0 auto;padding:0 20px}
+
+.site-head{background:var(--card);border-bottom:1px solid var(--line);padding:38px 0 34px}
+.brand{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.brand .mark{width:30px;height:30px;border-radius:8px;background:var(--navy);flex:0 0 auto}
+.brand .wm{font-family:Archivo,sans-serif;font-weight:800;font-size:17px;letter-spacing:-.01em}
+.brand .wm span{color:var(--ink-3);font-weight:600}
+h1{font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-.022em;line-height:1.05}
+.lede{color:var(--ink-2);font-size:17.5px;max-width:62ch;margin:13px 0 0}
+
+main{padding:30px 0 80px}
+
+.sec-label{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:0 0 14px;
+}
+
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:0 0 34px;padding:0;list-style:none}
+.doc-card{
+  display:flex;flex-direction:column;gap:9px;text-decoration:none;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 22px 20px;box-shadow:var(--shadow);
+  transition:border-color .18s ease,transform .18s ease;
+}
+.doc-card:hover{border-color:var(--amber);transform:translateY(-2px)}
+.doc-card h2{font-size:20px;font-weight:700;letter-spacing:-.012em}
+.doc-card p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.5}
+.doc-card .meta{
+  margin-top:4px;font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);font-weight:600;
+}
+.tag{
+  align-self:flex-start;font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  padding:4px 9px;border-radius:999px;border:1px solid var(--sage-line);
+  background:var(--sage-bg);color:var(--sage);
+}
+
+.planned{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:20px 22px}
+.planned ul{margin:10px 0 0;padding-left:20px;color:var(--ink-2);font-size:15px}
+.planned li{margin:4px 0}
+.planned p{margin:0;color:var(--ink-2);font-size:15px}
+
+.note{
+  border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.5;
+  border:1px solid var(--amber-line);background:var(--amber-bg);color:var(--ink);margin-top:26px;
+}
+.note b{font-weight:700}
+
+.site-foot{
+  border-top:1px solid var(--line);margin-top:40px;padding:22px 0 0;
+  color:var(--ink-3);font-size:13.5px;display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap;
+}
