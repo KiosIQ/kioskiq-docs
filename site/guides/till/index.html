@@ -130,14 +130,14 @@ h1,h2,h3,h4{font-family:Archivo,"Source Sans 3",ui-sans-serif,system-ui,sans-ser
 a{color:inherit}
 :focus-visible{outline:2.5px solid var(--amber);outline-offset:2px;border-radius:4px}
 
-.wrap{max-width:1240px;margin:0 auto;padding:0 20px 96px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 96px}
 
 /* ---------- masthead ---------- */
 /* Brand strip. The logo artwork is cream on transparent, so it always sits
    on the fixed brand navy rather than a themed surface. */
 .brandbar{background:var(--brand);color:var(--brand-ink)}
 .brandbar-in{
-  max-width:1240px;margin:0 auto;padding:14px 20px;
+  max-width:1120px;margin:0 auto;padding:14px 20px;
   display:flex;align-items:center;gap:16px;flex-wrap:wrap;
 }
 .brand-logo{height:34px;width:auto;display:block;flex:0 0 auto}
@@ -158,7 +158,7 @@ a{color:inherit}
   padding:34px 0 30px;
   margin-bottom:28px;
 }
-.mast-in{max-width:1240px;margin:0 auto;padding:0 20px;display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap}
+.mast-in{max-width:1120px;margin:0 auto;padding:0 20px;display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap}
 .mast-l{flex:1 1 420px;min-width:280px}
 .eyebrow{
   font-family:"JetBrains Mono",ui-monospace,monospace;
@@ -179,85 +179,89 @@ h1{font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-.022em;line-he
 .hint{font-size:13px;color:var(--ink-3)}
 
 /* ---------- layout ---------- */
-.cols{display:grid;grid-template-columns:236px minmax(0,1fr);gap:36px;align-items:start}
-/* grid items default to min-width:auto, which lets wide content (the
-   reference tables) push the track past the viewport instead of scrolling
-   inside its own container. minmax(0,…) plus min-width:0 is what actually
-   holds the page to the screen. */
+/* The index is a drawer at every width, so it is out of flow and the guide
+   is a single column. grid items default to min-width:auto, which lets wide
+   content (the reference tables) push a track past the viewport instead of
+   scrolling inside its own container; minmax(0,…) plus min-width:0 is what
+   actually holds the page to the screen. */
+.cols{display:grid;grid-template-columns:minmax(0,1fr);align-items:start}
 .cols>*{min-width:0}
-@media (max-width:900px){.cols{grid-template-columns:minmax(0,1fr);gap:20px}}
 
-.rail{position:sticky;top:18px}
-.mobile-bar,.scrim,.drawer-top{display:none}
-
-@media (max-width:900px){
-  /* A slim sticky bar keeps the menu within reach at any scroll position,
-     rather than only at the top of the page. */
-  .mobile-bar{
-    display:flex;align-items:center;gap:12px;
-    position:sticky;top:0;z-index:60;
-    padding:8px 14px;min-height:54px;
-    background:color-mix(in srgb,var(--card) 92%,transparent);
-    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .burger{
-    flex:0 0 auto;width:44px;height:44px;border-radius:10px;cursor:pointer;
-    background:var(--card);border:1px solid var(--line);color:var(--ink);
-    display:grid;place-content:center;gap:4px;padding:0;
-  }
-  .burger span{
-    display:block;width:19px;height:2.2px;border-radius:2px;background:currentColor;
-    transition:transform .24s ease,opacity .18s ease;
-  }
-  body.nav-open .burger span:nth-child(1){transform:translateY(6.2px) rotate(45deg)}
-  body.nav-open .burger span:nth-child(2){opacity:0}
-  body.nav-open .burger span:nth-child(3){transform:translateY(-6.2px) rotate(-45deg)}
-  .mobile-bar-mark{
-    width:28px;height:28px;border-radius:7px;flex:0 0 auto;display:block;
-  }
-  .mobile-bar-title{
-    font-family:Archivo,sans-serif;font-weight:700;font-size:15.5px;
-    letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
-
-  .scrim{
-    display:block;position:fixed;inset:0;z-index:65;
-    background:rgba(8,12,20,.5);opacity:0;pointer-events:none;
-    transition:opacity .26s ease;
-  }
-  body.nav-open .scrim{opacity:1;pointer-events:auto}
-  body.nav-open{overflow:hidden}
-
-  .rail{
-    position:fixed;top:0;left:0;bottom:0;width:min(302px,86vw);
-    z-index:70;overflow-y:auto;-webkit-overflow-scrolling:touch;
-    background:var(--card);border-right:1px solid var(--line);
-    box-shadow:var(--shadow-lift);
-    padding:0 14px 24px;
-    transform:translateX(-103%);
-    transition:transform .26s cubic-bezier(.3,.8,.3,1);
-    visibility:hidden;
-  }
-  body.nav-open .rail{transform:none;visibility:visible}
-  .drawer-top{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;
-    position:sticky;top:0;background:var(--card);z-index:1;
-    padding:16px 0 12px;margin-bottom:2px;border-bottom:1px solid var(--line);
-  }
-  .drawer-title{font-family:Archivo,sans-serif;font-weight:700;font-size:16px}
-  .drawer-close{
-    width:38px;height:38px;border-radius:9px;cursor:pointer;flex:0 0 auto;
-    background:var(--card-2);border:1px solid var(--line);color:var(--ink-2);
-    font-size:19px;line-height:1;display:grid;place-content:center;padding:0;
-  }
-  .rail h4{margin-top:16px}
-  .rail a{min-height:44px;align-items:center;font-size:15.5px}
+/* One navigation model at every width: a sticky bar with a burger that opens
+   the task list as a drawer. The index is then reachable from any scroll
+   position on a phone and on a counter terminal alike, and the guide itself
+   gets the full column instead of sharing it with a permanent sidebar. */
+.topbar{
+  display:flex;align-items:center;
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb,var(--card) 92%,transparent);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
 }
-@media (max-width:900px) and (prefers-reduced-motion:reduce){
-  .rail{transition:none}
-  .scrim{transition:none}
-  .burger span{transition:none}
+.topbar-in{
+  display:flex;align-items:center;gap:12px;
+  width:100%;max-width:1120px;margin:0 auto;
+  padding:8px 20px;min-height:56px;
+}
+.burger{
+  flex:0 0 auto;width:44px;height:44px;border-radius:10px;cursor:pointer;
+  background:var(--card);border:1px solid var(--line);color:var(--ink);
+  display:grid;place-content:center;gap:4px;padding:0;
+  transition:border-color .18s ease,color .18s ease;
+}
+.burger:hover{border-color:var(--amber);color:var(--amber)}
+.burger span{
+  display:block;width:19px;height:2.2px;border-radius:2px;background:currentColor;
+  transition:transform .24s ease,opacity .18s ease;
+}
+body.nav-open .burger span:nth-child(1){transform:translateY(6.2px) rotate(45deg)}
+body.nav-open .burger span:nth-child(2){opacity:0}
+body.nav-open .burger span:nth-child(3){transform:translateY(-6.2px) rotate(-45deg)}
+.topbar-mark{width:28px;height:28px;border-radius:7px;flex:0 0 auto;display:block}
+.topbar-title{
+  font-family:Archivo,sans-serif;font-weight:700;font-size:15.5px;
+  letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+.scrim{
+  position:fixed;inset:0;z-index:65;
+  background:rgba(4,10,26,.5);opacity:0;pointer-events:none;
+  transition:opacity .26s ease;
+}
+body.nav-open .scrim{opacity:1;pointer-events:auto}
+body.nav-open{overflow:hidden}
+
+.rail{
+  position:fixed;top:0;left:0;bottom:0;width:min(318px,86vw);
+  z-index:70;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:var(--card);border-right:1px solid var(--line);
+  box-shadow:var(--shadow-lift);
+  padding:0 16px 26px;
+  transform:translateX(-103%);
+  transition:transform .26s cubic-bezier(.3,.8,.3,1);
+  visibility:hidden;
+}
+body.nav-open .rail{transform:none;visibility:visible}
+.drawer-top{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  position:sticky;top:0;background:var(--card);z-index:1;
+  padding:16px 0 12px;margin-bottom:2px;border-bottom:1px solid var(--line);
+}
+.drawer-title{font-family:Archivo,sans-serif;font-weight:700;font-size:16px}
+.drawer-close{
+  width:38px;height:38px;border-radius:9px;cursor:pointer;flex:0 0 auto;
+  background:var(--card-2);border:1px solid var(--line);color:var(--ink-2);
+  font-size:19px;line-height:1;display:grid;place-content:center;padding:0;
+}
+.drawer-close:hover{border-color:var(--amber);color:var(--amber)}
+.rail h4{margin-top:16px}
+.rail a{min-height:44px;align-items:center;font-size:15.5px}
+
+@media (max-width:560px){
+  .topbar-in{padding:8px 14px}
+}
+@media (prefers-reduced-motion:reduce){
+  .rail,.scrim,.burger span{transition:none}
 }
 .rail h4{
   font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
@@ -649,10 +653,8 @@ footer{
 
 /* Declared last on purpose: it has to beat the .task and .decide
    scroll-margin set further up, so a jump from the drawer lands below the
-   sticky bar instead of underneath it. */
-@media (max-width:900px){
-  .task,.decide{scroll-margin-top:70px}
-}
+   sticky bar instead of underneath it. The bar is present at every width. */
+.task,.decide{scroll-margin-top:72px}
 </style>
 
 <div class="brandbar">
@@ -679,12 +681,14 @@ footer{
   </div>
 </header>
 
-<div class="mobile-bar">
+<div class="topbar">
+ <div class="topbar-in">
   <button type="button" class="burger" id="navBtn" aria-label="Open the task menu" aria-expanded="false" aria-controls="navDrawer">
     <span></span><span></span><span></span>
   </button>
-  <img class="mobile-bar-mark" src="data:image/png;base64,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" alt="" width="96" height="96">
-  <span class="mobile-bar-title">Till Handbook</span>
+  <img class="topbar-mark" src="data:image/png;base64,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" alt="" width="96" height="96">
+  <span class="topbar-title">Till Handbook</span>
+ </div>
 </div>
 <div class="scrim" id="navScrim"></div>
 
@@ -1476,8 +1480,6 @@ footer{
   var navBtn  = document.getElementById('navBtn');
   var navClose= document.getElementById('navClose');
   var scrim   = document.getElementById('navScrim');
-  var narrow  = window.matchMedia('(max-width: 900px)');
-
   function openNav(){
     document.body.classList.add('nav-open');
     navBtn.setAttribute('aria-expanded','true');
@@ -1487,20 +1489,10 @@ footer{
   function closeNav(returnFocus){
     document.body.classList.remove('nav-open');
     navBtn.setAttribute('aria-expanded','false');
-    if (narrow.matches) drawer.setAttribute('aria-hidden','true');
+    drawer.setAttribute('aria-hidden','true');
     if (returnFocus) navBtn.focus();
   }
-  function syncNav(){
-    if (narrow.matches){
-      if (!document.body.classList.contains('nav-open')) drawer.setAttribute('aria-hidden','true');
-    } else {
-      document.body.classList.remove('nav-open');
-      navBtn.setAttribute('aria-expanded','false');
-      drawer.removeAttribute('aria-hidden');
-    }
-  }
-  syncNav();
-  (narrow.addEventListener ? narrow.addEventListener('change', syncNav) : narrow.addListener(syncNav));
+  if (!document.body.classList.contains('nav-open')) drawer.setAttribute('aria-hidden','true');
 
   navBtn.addEventListener('click', function(){
     document.body.classList.contains('nav-open') ? closeNav(true) : openNav();
@@ -1512,7 +1504,7 @@ footer{
   });
   // picking a task closes the drawer and lets the anchor jump happen
   rail.addEventListener('click', function(e){
-    if (e.target.closest('a') && narrow.matches) closeNav(false);
+    if (e.target.closest('a')) closeNav(false);
   });
   // keep tabbing inside the drawer while it is open
   drawer.addEventListener('keydown', function(e){
