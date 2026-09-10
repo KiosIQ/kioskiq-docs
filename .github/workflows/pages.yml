@@ -32,15 +32,20 @@ jobs:
         run: |
           set -euo pipefail
           missing=0
-          for f in site/index.html site/guides/till/index.html; do
+          for f in site/index.html site/guides/till/index.html site/guides/kitchen/index.html; do
             if [ ! -s "$f" ]; then echo "::error::missing or empty: $f"; missing=1; fi
           done
           if ! grep -qi '<!doctype html>' site/index.html; then
             echo "::error::site/index.html has no doctype"; missing=1
           fi
-          if ! grep -qi '<!doctype html>' site/guides/till/index.html; then
-            echo "::error::site/guides/till/index.html has no doctype"; missing=1
-          fi
+          for f in site/guides/till/index.html site/guides/kitchen/index.html; do
+            if ! grep -qi '<!doctype html>' "$f"; then
+              echo "::error::$f has no doctype"; missing=1
+            fi
+            if ! grep -qi 'charset="utf-8"' "$f"; then
+              echo "::error::$f has no charset - non-ASCII text will render as mojibake"; missing=1
+            fi
+          done
           exit $missing
 
       - name: Configure Pages
