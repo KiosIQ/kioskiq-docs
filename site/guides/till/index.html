@@ -811,7 +811,7 @@ footer{
           <li><span class="k">1</span><div><b>Restaurant name.</b> Tap the arrow here to go back up a level when you're inside a menu category.</div></li>
           <li><span class="k">2</span><div><b>Menu items.</b> Switch a dish off when the kitchen runs out, and back on when it's restocked — see task 03.</div></li>
           <li><span class="k">3</span><div><b>Order history.</b> Past orders live here. This is where refunds and cancellations happen — not on the Orders tab.</div></li>
-          <li><span class="k">4</span><div><b>Z Read.</b> End-of-day cash-up. Manager only — see task 13.</div></li>
+          <li><span class="k">4</span><div><b>Z Read.</b> End-of-day cash-up. Manager only — see task 14.</div></li>
           <li><span class="k">5</span><div><b>Help.</b> Opens this handbook on the till itself, at the section you need. If you are ever unsure mid-service, start here.</div></li>
           <li><span class="k">6</span><div><b>The menu.</b> Tap a category to open it, then tap a dish to add it. The small dark square opens toppings and options.</div></li>
           <li><span class="k">7</span><div><b>Ticket / Orders.</b> <b>Ticket</b> is what you're ringing up right now. <b>Orders</b> is everything already sent to the kitchen.</div></li>
@@ -1345,10 +1345,111 @@ footer{
       </div>
     </article>
 
+    <!-- ============ 08 EDIT ORDER ============ -->
+    <article class="task" id="t-editorder" data-title="Edit an order" data-k="edit order change items add remove item quantity amend correct mistake top up extra charge partial refund difference before cooking pending confirmed">
+      <div class="task-h">
+        <div class="task-n">09</div>
+        <div class="task-t">
+          <h2>Edit an order</h2>
+          <p>Add an item, remove one, or change a quantity on an order that hasn't started cooking yet. The till works out whether that means <b>extra to collect</b> or <b>money to refund</b>, and settles it for you.</p>
+        </div>
+        <span class="chip mgr"><span class="dot"></span>PIN for refunds</span>
+      </div>
+      <div class="task-body">
+        <div>
+          <ol class="steps" data-steps>
+            <li data-hs="#e-open">Top toolbar → <b>Order history</b>. Pick the order.<span class="said">Only <b>Pending</b> or <b>Confirmed</b> orders show <b>Edit order</b> — once the kitchen has started, it's too late.</span></li>
+            <li data-hs="#e-btn">Tap <kbd>Edit order</kbd>.</li>
+            <li data-hs="#e-remove">Change a quantity, remove a line, or search and add a new item.<span class="said">A line that already has refund or discount history of its own can't be removed here — use <b>Refund a paid order</b> for that instead.</span></li>
+            <li data-hs="#e-preview">Tap <kbd>Preview changes</kbd> to see the new total.</li>
+            <li data-hs="#e-confirm">Tap <kbd>Confirm and save</kbd>.<span class="said">Costs more? Pick <b>Cash</b> or <b>Card</b> first — cash shows the same change calculator as taking payment. No PIN needed. Costs less? A manager approves with their PIN, same as any refund.</span></li>
+            <li data-hs="#e-cash">For a cash refund, the <b>drawer opens</b>. Count the money out.</li>
+            <li data-hs="#e-exact">Type the <b>exact amount</b> you handed back. Tap <kbd>Record</kbd>.</li>
+          </ol>
+          <div class="note warn">
+            <span class="lbl">Only before the kitchen starts</span>
+            <b>Edit order</b> only appears while the order is still <b>Pending</b> or <b>Confirmed</b>. Once it's <b>Preparing</b>, use <b>Refund a paid order</b> instead — or <b>Cancel</b> if nothing was ever paid.
+          </div>
+          <div class="note good">
+            <span class="lbl">The maths is done for you</span>
+            Tax is recalculated against the new total automatically. If the order already had a discount on it, that's rescaled to match too — you never re-type it or work out the difference yourself.
+          </div>
+          <div class="note stop">
+            <span class="lbl">Exact amount, every time</span>
+            A cash refund from an edit needs the <b>exact amount</b> typed back, just like a normal refund. It won't record a mismatched figure — recount rather than force it.
+          </div>
+        </div>
+        <div>
+          <div class="till" data-flow>
+            <div class="till-bar"><div class="logo"></div><div class="nm">Order history</div><div class="sp"></div><div class="ic hs" id="e-open">▤</div></div>
+            <div class="till-body wide">
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <div class="ordbox"><div class="oh"><span class="oid">#4 · Walk-in</span><span class="pill conf">Confirmed</span></div><div class="om">DINE_IN · 13:17 · £8.98</div></div>
+                <div class="ordbox" style="opacity:.45"><div class="oh"><span class="oid">#3 · test</span><span class="pill pend">Pending</span></div><div class="om">TAKEAWAY · £30.50</div></div>
+                <div class="ordbox" style="opacity:.45"><div class="oh"><span class="oid">#2 · test</span><span class="pill pend">Pending</span></div><div class="om">TAKEAWAY · £30.50</div></div>
+              </div>
+              <div class="panel">
+                <div class="row" style="font-weight:800;font-size:11px"><span>#4</span><span>£8.98</span></div>
+                <div class="duo" style="gap:4px">
+                  <div class="field" style="font-size:7.5px">Payment<br><b style="color:var(--ink);font-size:9px">CASH · PAID</b></div>
+                  <div class="field" style="font-size:7.5px">Type<br><b style="color:var(--ink);font-size:9px">DINE_IN</b></div>
+                </div>
+                <div class="btn navy big hs" id="e-btn">Edit order</div>
+                <div class="ordbox"><div class="oh"><span class="oid">2× Steak Burger</span><span class="oid">£8.98</span></div><div class="om">£4.49 each</div></div>
+                <div class="row tot"><span>Total</span><span>£8.98</span></div>
+              </div>
+            </div>
+            <div class="modal" data-modal="3,4">
+              <div class="mbox">
+                <h5>Edit order #4</h5>
+                <div class="ordbox hs" id="e-remove" style="margin-bottom:6px">
+                  <div class="oh"><span class="oid">Steak Burger</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">– 1 +</span></div>
+                  <div class="om">2 → <b style="color:var(--claret)">1</b></div>
+                </div>
+                <div class="field" style="color:var(--ink-3)">+ Search menu to add an item…</div>
+                <div class="duo" style="margin-top:7px"><div class="btn ghost">Cancel</div><div class="btn navy hs" id="e-preview">Preview changes</div></div>
+              </div>
+            </div>
+            <div class="modal" data-modal="5">
+              <div class="mbox">
+                <h5>Preview edit</h5>
+                <div class="row"><span>Current total</span><span>£8.98</span></div>
+                <div class="row tot"><span>New total</span><span>£4.49</span></div>
+                <p style="color:var(--claret);font-weight:700">You will refund £4.49 to the customer.</p>
+                <div class="field" style="color:var(--ink)">Reason: Guest changed their mind</div>
+                <div class="duo" style="margin-top:7px"><div class="btn ghost">Back</div><div class="btn navy hs" id="e-confirm">Confirm and save</div></div>
+              </div>
+            </div>
+            <div class="modal" data-modal="5b">
+              <div class="mbox">
+                <h5>Manager approval required</h5>
+                <p>Enter manager PIN to approve this refund.</p>
+                <div class="pindots">••••</div>
+                <div class="keypad"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div></div>
+                <div class="duo"><div class="btn ghost">Cancel</div><div class="btn navy">Approve</div></div>
+              </div>
+            </div>
+            <div class="modal" data-modal="6,7">
+              <div class="mbox">
+                <h5>Confirm cash refund</h5>
+                <p>The till has opened the cash drawer. Enter the exact amount returned.</p>
+                <div class="row tot" style="border:0"><span>Expected refund</span><span>£4.49</span></div>
+                <div class="field hs" id="e-exact" style="margin-top:5px;color:var(--ink)">£ 4.49</div>
+                <div class="amtbar wait hs" id="e-cash" data-swap="7"><span data-swaptxt>Awaiting exact amount</span><span class="big" data-swapamt>£0.00</span></div>
+                <div class="duo" style="margin-top:7px"><div class="btn ghost">Cancel</div><div class="btn navy">Record £4.49</div></div>
+              </div>
+            </div>
+            <div class="finger"></div>
+          </div>
+          <div class="flow-ctl"><button data-toggle>Pause</button><div class="pips"></div></div>
+        </div>
+      </div>
+    </article>
+
     <!-- ============ 08 CANCEL ============ -->
     <article class="task" id="t-cancel" data-title="Cancel an unpaid order" data-k="cancel void kill order unpaid mistake walked out no show remove order">
       <div class="task-h">
-        <div class="task-n">09</div>
+        <div class="task-n">10</div>
         <div class="task-t">
           <h2>Cancel an unpaid order</h2>
           <p>For orders where no money has changed hands — a Pay Later the guest never came back for, or a ticket rung up by mistake.</p>
@@ -1395,7 +1496,7 @@ footer{
     <!-- ============ 09 LIFECYCLE ============ -->
     <article class="task" id="t-status" data-title="Move an order along" data-k="status confirm prepare ready complete kitchen kds progress stages orders tab filter">
       <div class="task-h">
-        <div class="task-n">10</div>
+        <div class="task-n">11</div>
         <div class="task-t">
           <h2>Move an order along</h2>
           <p>Every order walks through four stages. Tapping them keeps the kitchen screen, the counter and the guest in step.</p>
@@ -1424,7 +1525,7 @@ footer{
     <!-- ============ 10 CUSTOMER ============ -->
     <article class="task" id="t-customer" data-title="Put a name on an order" data-k="customer name phone walk-in change customer room number regular">
       <div class="task-h">
-        <div class="task-n">11</div>
+        <div class="task-n">12</div>
         <div class="task-t">
           <h2>Put a name on an order</h2>
           <p>Every ticket starts as <b>Walk-in Customer</b>. Adding a name makes it callable, findable and — for Pay Later — chaseable.</p>
@@ -1448,7 +1549,7 @@ footer{
     <!-- ============ 11 KIOSK ============ -->
     <article class="task" id="t-kiosk" data-title="Orders from the kiosk" data-k="kiosk self service online qr orders incoming new orders bell notification source">
       <div class="task-h">
-        <div class="task-n">12</div>
+        <div class="task-n">13</div>
         <div class="task-t">
           <h2>Orders from the kiosk</h2>
           <p>Self-service kiosk and online orders arrive in the same <b>Orders</b> list as the ones you ring up.</p>
@@ -1472,7 +1573,7 @@ footer{
     <!-- ============ 12 Z READ ============ -->
     <article class="task" id="t-zread" data-title="End of day: the Z Read" data-k="z read end of day close cash up closeout blockers gross sales net discounts given items sold reprint">
       <div class="task-h">
-        <div class="task-n">13</div>
+        <div class="task-n">14</div>
         <div class="task-t">
           <h2>End of day: the Z Read</h2>
           <p>Closes the trading day and prints the day's totals. Once you close, the day is shut — so it goes last, after the doors are locked.</p>
@@ -1524,7 +1625,7 @@ footer{
     <!-- ============ 13 EDGE CASES ============ -->
     <article class="task" id="t-edge" data-title="Awkward situations" data-k="split bill allergy allergen out of stock till frozen wifi offline card declined guest walked out wrong item help problems troubleshooting">
       <div class="task-h">
-        <div class="task-n">14</div>
+        <div class="task-n">15</div>
         <div class="task-t">
           <h2>Awkward situations</h2>
           <p>Things that happen on a busy shift, and what to do when the till doesn't have a button for them.</p>
@@ -1554,7 +1655,7 @@ footer{
     <!-- ============ 14 TOOLBAR ============ -->
     <article class="task" id="t-toolbar" data-title="Every toolbar button" data-k="toolbar icons buttons top bar reference what does this button do settings printer payments pin categories sign out">
       <div class="task-h">
-        <div class="task-n">15</div>
+        <div class="task-n">16</div>
         <div class="task-t">
           <h2>Every toolbar button</h2>
           <p>Left to right along the top of the screen. Four of these are manager territory — leave them alone unless you've been shown.</p>
@@ -1570,7 +1671,7 @@ footer{
               <tr><td class="mono">🔔 New kiosk orders</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Flags orders arriving from the self-service kiosk.</td></tr>
               <tr><td class="mono">⟳ Refresh</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Re-pulls orders from the server. Safe to tap any time.</td></tr>
               <tr><td class="mono">▦ Menu items</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Switch a dish off when it's sold out, and back on when it returns. Applies to the till, the kiosk and online at once.</td></tr>
-              <tr><td class="mono">▤ Order history</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Past orders, day by day. <b>Refunds and cancellations happen here.</b></td></tr>
+              <tr><td class="mono">▤ Order history</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Past orders, day by day. <b>Edits, refunds and cancellations happen here.</b></td></tr>
               <tr><td class="mono">Z Read</td><td><span class="chip mgr"><span class="dot"></span>PIN</span></td><td>End-of-day totals and closing the trading day.</td></tr>
               <tr><td class="mono">💷 Open cash drawer</td><td><span class="chip anyone"><span class="dot"></span>Anyone</span></td><td>Pops the drawer without a sale, for change.</td></tr>
               <tr><td class="mono">⚙ Settings</td><td><span class="chip mgr"><span class="dot"></span>Manager</span></td><td>A menu of set-up-once jobs: <b>Printer setup</b>, <b>Payment setup</b>, <b>Reorder categories</b>, <b>Till preferences</b> (whether discounts need a manager PIN) and <b>Set manager PIN</b> (the PIN that approves refunds and the Z Read). Nothing in here is needed during a normal shift.</td></tr>
@@ -1581,7 +1682,7 @@ footer{
       </div>
     </article>
 
-    <div class="noresult" id="noresult">Nothing matches that. Try <b>refund</b>, <b>discount</b>, <b>pay later</b>, <b>print</b>, <b>cancel</b> or <b>end of day</b>.</div>
+    <div class="noresult" id="noresult">Nothing matches that. Try <b>edit order</b>, <b>refund</b>, <b>discount</b>, <b>pay later</b>, <b>print</b>, <b>cancel</b> or <b>end of day</b>.</div>
 
     <footer>
       <span class="foot-brand">
